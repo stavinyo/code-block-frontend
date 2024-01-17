@@ -1,0 +1,212 @@
+/* Breakpoint mixins */
+/* Breakpoint mixins */
+
+@mixin for-mobile-layout {
+  @media (max-width: calc($mobile-breakpoint + 40px)) {
+    @content;
+  }
+}
+
+@mixin for-narrow-layout {
+  @media (min-width: calc($mobile-breakpoint + 140px)) {
+    @content;
+  }
+}
+
+@mixin for-normal-layout {
+  @media (min-width: calc($narrow-breakpoint + 40px)) {
+    @content;
+  }
+}
+
+@mixin for-wide-layout {
+  @media (min-width: calc($normal-breakpoint + 40px)) {
+    @content;
+  }
+}
+
+@mixin fixed-img-url() {
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Media  Mixins */
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-top: calc(($height / $width) * 100%);
+  }
+
+  >* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  >img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Mixin for removing hover efects on iphone screen
+@mixin hover-supported {
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin btns-header-ops {
+
+  &:hover {
+    background-color: $headerBtnClr;
+    border-radius: 3px;
+  }
+}
+
+@mixin btns-header-user {
+
+  &:hover {
+    background-color: $headerBtnClr;
+    border-radius: 100%;
+  }
+}
+
+@mixin button-select-bgc($width, $height, $marginBottom) {
+  width: $width;
+  height: $height;
+  margin: 0;
+  margin-bottom: $marginBottom;
+}
+
+//   @mixin hover-supported {    
+//     @media not all and (pointer: coarse) {
+//         &:hover {
+//             @content;
+//         }
+//     }
+
+//   }
+
+//   }
+
+@mixin member-img {
+  width: rem(28px);
+  height: rem(28px);
+  border-radius: 50%;
+}
+
+
+@mixin btns-group {
+  font-size: rem(16px);
+  height: 32px;
+  background-color: #d0d4db;
+  border-radius: 8px;
+}
+
+@mixin input-task-feature {
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: rem(14px);
+  border: none;
+  line-height: 20px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px $taskInput;
+  width: 100%;
+
+  &::placeholder {
+    color: $groupHeader ;
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 2px $blue1;
+  }
+}
+
+@mixin btn-gray-bgc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $taskItemsBgc ;
+  height: 32px;
+  border-radius: 3px;
+  transition: all 0.1s;
+  color: $wsTxtColor;
+  cursor: pointer;
+  margin: 15px 0 0 0;
+
+  &:hover {
+    background-color: $wsEmptyBoardBgcHover;
+  }
+}
+
+@mixin action-btn {
+  font-family: 'CharlieText-regular', sans-serif;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  color: white;
+  margin-inline-end: 6px;
+  height: rem(50px);
+  background-color: $actionBtnClr;
+  border: rem(1px) solid $actionBtnClr;
+  border-radius: rem(3px);
+  font-size: rem(16px);
+  transition: 0.2s ease-in-out;
+  padding: rem(11.2px) rem(16px) rem(12.8px);
+
+  &:hover {
+    background-color: $LogoHoverClr;
+    border-color: $LogoHoverClr;
+  }
+}
+
+@mixin blue-action-btn {
+  width: 53px;
+  height: 32px;
+  background-color: $actionBtnClr;
+  border-color: $actionBtnClr;
+  color: white;
+  border-radius: 3px;
+  font-size: rem(14px);
+
+  &:hover {
+    background-color: $LogoHoverClr;
+    border-color: $LogoHoverClr;
+  }
+}
+
+@mixin red-action-btn {
+  width: 53px;
+  height: 32px;
+  background-color: $deleteBtnBgc;
+  border-color: $deleteBtnBgc;
+  color: white;
+  border-radius: 3px;
+  font-size: rem(14px);
+
+  &:hover {
+    background-color: $deleteBtnHover;
+    border-color: $deleteBtnHover;
+  }
+}
+
+@mixin back-and-exit-btns {
+  position: absolute;
+  cursor: pointer;
+  padding: 5px 7px;
+
+  &:hover {
+    background-color: $exitBtnHover;
+    border-radius: 8px;
+  }
+}

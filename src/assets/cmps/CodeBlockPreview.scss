@@ -1,0 +1,23 @@
+
+.code-block-preview {
+    height: auto;
+
+    .code-text-preview {
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .code-content {
+            padding: 15px;
+            min-height: 200px;
+            background-color: $bgcList;
+            // border-radius:  8px;
+            border: 1px solid rgba(0, 0, 0, 0.288);
+            box-shadow: 10px 10px 2px rgb(48, 45, 45);
+
+            code {
+                display: block; // Ensure the code element takes the full width
+            }
+        }
+    }
+}

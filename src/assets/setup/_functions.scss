@@ -1,0 +1,26 @@
+// REM Functions
+@function rem($size) {
+    $remSize: calc($size / 16px);
+    @return calc($remSize * 1rem);
+}
+
+// EM Functions
+@function em($pixels, $context: 16px) {
+    @return calc(($pixels/$context) * 1em);
+}
+
+@function brighten-color($color, $percentage) {
+    // Convert color to HSL
+    $h: hue($color);
+    $s: saturation($color);
+    $l: lightness($color);
+  
+    // Calculate the new lightness value
+    $new-l: $l + $percentage;
+  
+    // Ensure the new lightness value stays within the valid range (0 - 100)
+    $new-l: max(0, min(100, $new-l));
+  
+    // Create and return the brighter color
+    @return hsl($h, $s, $new-l);
+  }

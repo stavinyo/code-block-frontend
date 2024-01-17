@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: roboto;
+}
+
+html, body {
+    height: 100%;
+}
+
+html {
+    font-family: charlieBold;
+    background-color: $bgcPage;
+    color: rgb(235, 232, 229);
+}
+
+.app {
+    width: 100%; // Set the width to 100%
+    max-width: 60%; // Add a max-width if needed
+    margin: 0 auto; // Center the element horizontally
+}
+
+a {
+    text-decoration: none;
+}

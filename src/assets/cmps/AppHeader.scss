@@ -1,0 +1,12 @@
+.app-header {
+    padding: 10px;
+    font-size: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    a > h1 {
+            font-family: neue;
+    }
+}
