@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { CodeBlockList } from "./cmps/CodeBlockList";
-import { codeBlockService } from "./services/code-block.service";
+import { CodeBlockList } from "./cmps/CodeBlockList"
+import { codeBlockService } from "./services/code-block.service"
 
 export function LobbyPage() {
     const [codeBlocks, setCodeBlocks] = useState([]);
@@ -12,6 +12,7 @@ export function LobbyPage() {
     async function loadCodeBlocks() {
         try {
             const blocks = await codeBlockService.query()
+            console.log('blocks', blocks)
             setCodeBlocks(blocks)
         } catch (err) {
             console.log('Cannot load code blocks', err)
@@ -20,7 +21,7 @@ export function LobbyPage() {
 
     return (
         <div className='main-container'>
-            <h1 className='lobby-title'>lobby</h1>
+            <h1 className='lobby-title'>Choose code block</h1>
             <main className='lobby-main'>
                 <CodeBlockList codeBlocks={codeBlocks} />
             </main>

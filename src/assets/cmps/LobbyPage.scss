@@ -1,14 +1,17 @@
-.main-container{
-    .lobby-title{
-    margin-bottom: rem(32px);
-
+.main-container, .lobby-main {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: rem(16px);
+    flex-direction: column;
+}
+
+.main-container {
+    .lobby-main {
+        max-width: 80%;
     }
-    
-    // .lobby-main{
-    
-    // }
+
+    .lobby-title {
+        margin-bottom: rem(20px);
+        font-size: rem(16px);
+    }
 }

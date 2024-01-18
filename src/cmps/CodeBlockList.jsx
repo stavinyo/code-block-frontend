@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export function CodeBlockList({ codeBlocks, setCodeBlocks }) {
@@ -6,7 +6,7 @@ export function CodeBlockList({ codeBlocks, setCodeBlocks }) {
 
     function onGetDetails(codeBlockId) {
         navigate(`/codeBlockPreview/${codeBlockId}`, {
-            state: { codeBlocks, setCodeBlocks }
+            state: { codeBlocks, setCodeBlocks },
         })
     }
 
@@ -21,5 +21,5 @@ export function CodeBlockList({ codeBlocks, setCodeBlocks }) {
                 </div>
             ))}
         </section>
-    );
+    )
 }

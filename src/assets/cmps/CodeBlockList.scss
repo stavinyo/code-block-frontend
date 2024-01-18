@@ -1,14 +1,18 @@
-.btn-code-block {
-    padding: 8px;
-    margin: 5px;
-    border-radius: 8px;
-    cursor: pointer;
-    
-    background-color: $bgcList;
-    transition: transform 0.3s ease;
+.code-block-list{
 
-    &:hover {
-        transform: scale(1.1); 
-        background-color: $bgcHoverList;
+
+    .btn-code-block {
+        padding: 8px;
+        margin: 5px;
+        border-radius: 8px;
+        cursor: pointer;
+        
+        background-color: $bgcList;
+        transition: transform 0.4s ease;
+        
+        &:hover {
+            transform: scale(1.1); 
+            background-color: $bgcHoverList;
+        }
     }
 }
