@@ -2,21 +2,25 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
+import io from 'socket.io-client';
 
 import 'highlight.js/styles/agate.css'
 import { codeBlockService } from '../services/code-block.service'
 
 hljs.registerLanguage('javascript', javascript)
 
+const socket = io('http://localhost:5173', { withCredentials: true });
+
+
 export function CodeBlockPreview() {
     const { codeBlockId } = useParams()
     const location = useLocation()
     const { codeBlocks } = location.state || {}
 
-    const selectedCodeBlock = codeBlocks && codeBlocks.find((codeBlock) => codeBlock._id === codeBlockId)
+
+    const selectedCodeBlock = Array.isArray(codeBlocks) && codeBlocks.find((codeBlock) => codeBlock._id === codeBlockId);
 
     const preRef = useRef(null);
-    console.log('preRef', preRef)
     const [codeContent, setCodeContent] = useState(selectedCodeBlock ? selectedCodeBlock.codeContent : '')
 
     useEffect(() => {
@@ -25,34 +29,41 @@ export function CodeBlockPreview() {
         }
     }, [codeContent])
 
+    useEffect(() => {
+        const handleCodeBlockUpdate = (updatedCodeBlock) => {
+            console.log('Received codeBlockUpdated event:', updatedCodeBlock)
+            console.log(`Code block updated: ${updatedCodeBlock._id}`)
+            setCodeContent(updatedCodeBlock.codeContent)
+        }
+        socket.on('codeBlockUpdated', handleCodeBlockUpdate)
+        return () => {
+            socket.off('codeBlockUpdated', handleCodeBlockUpdate)
+        }
+    }, [codeBlockId])
+
+
     function handleContentChange(ev) {
         const updatedContent = ev.target.innerText
         onUpdateContent(updatedContent)
-        console.log('codeBlocks4', codeBlocks)
     }
 
     async function onUpdateContent(newCodeContent) {
-        console.log('codeBlocks1', codeBlocks)
+
         if (selectedCodeBlock) {
             const updatedCodeBlock = {
                 ...selectedCodeBlock,
                 codeContent: newCodeContent,
             }
-            console.log('codeBlocks2', codeBlocks)
 
             setCodeContent(newCodeContent)
-            console.log('codeBlocks3', codeBlocks)
             try {
                 const savedCodeBlock = await codeBlockService.save(updatedCodeBlock)
-                console.log('codeBlocks5', codeBlocks)
                 console.log('Code block saved successfully', savedCodeBlock)
             } catch (error) {
                 console.error('Error saving code block', error)
             }
         }
     }
-
-
 
     if (!selectedCodeBlock) {
         return <div>Code block not found</div>;
@@ -74,5 +85,5 @@ export function CodeBlockPreview() {
                 </div>
             </div>
         </section>
-    );
+    )
 }

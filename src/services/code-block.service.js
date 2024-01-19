@@ -1,6 +1,8 @@
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js';
 
+import { storageService } from './async-storage.service.js'
+
+import { httpService } from './http.service.js'
+import { utilService } from './util.service.js';
 
 const STORAGE_KEY = 'codeBlockDB'
 
@@ -99,37 +101,45 @@ async function executePromise() {
 ];
 
 
-_createCodeBlocks()
+// _createCodeBlocks()
 
 async function query() {
-    var codeBlocks = await storageService.query(STORAGE_KEY)
-    console.log('codeBlocks query:', codeBlocks)
-    return codeBlocks
+    try {
+        const codeBlocks = await httpService.get('api/codeblocks');
+        return codeBlocks;
+    } catch (err) {
+        console.error('Error fetching code blocks', err);
+        throw err;
+    }
 }
-
 async function getById(codeBlockId) {
-    return await storageService.get(STORAGE_KEY, codeBlockId)
+    // return await storageService.get(STORAGE_KEY, codeBlockId)
+    return await httpService.get('codeblocks/', codeBlockId)
 }
 
 async function remove(codeBlockId) {
-    await storageService.remove(STORAGE_KEY, codeBlockId)
+    // await storageService.remove(STORAGE_KEY, codeBlockId)
+    await httpService.delete('codeblocks/', codeBlockId)
 }
 
 async function save(codeBlock) {
-    var savedCodeBlock
+    console.log('Updating code block with ID:', codeBlock._id);
+
+    var savedCodeBlock;
     if (codeBlock._id) {
-        savedCodeBlock = await storageService.put(STORAGE_KEY, codeBlock)
+        savedCodeBlock = await httpService.put(`api/codeblocks/${codeBlock._id}`, codeBlock);
     } else {
-        savedCodeBlock = await storageService.post(STORAGE_KEY, { ...getEmptyCodeBlock(), title: codeBlock.title, })
+        savedCodeBlock = await httpService.post('api/codeblocks/', { ...getEmptyCodeBlock(), title: codeBlock.title });
     }
-    return savedCodeBlock
+    return savedCodeBlock;
 }
 
+
 function _createCodeBlocks() {
-    let codeBlocks = storageService.loadFromStorage(STORAGE_KEY)
+    let codeBlocks = storageService.loadFromStorage('codeblocks/')
     if (!codeBlocks || !codeBlocks.length) {
-        codeBlocks = CODEBLOCKS
-        storageService.saveToStorage(STORAGE_KEY, codeBlocks)
+        codeBlocks = 'codeblocks/'
+        storageService.saveToStorage('codeblocks/', codeBlocks)
     }
 }
 
