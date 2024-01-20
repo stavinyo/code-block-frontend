@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/'
+    ? 'https://code-block.up.railway.app/'
     : '//localhost:3030/'
 
 
