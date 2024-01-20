@@ -2,7 +2,8 @@ import Axios from 'axios'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? 'https://code-block.up.railway.app/api/codeblocks'
-    : '//localhost:3030/'
+    // ? '/api/'
+    : '//localhost:3030/api/'
 
 
 var axios = Axios.create({
