@@ -16,6 +16,14 @@
             background-color: $bgcList;
             box-shadow: 10px 10px 2px rgb(48, 45, 45);
             box-sizing: border-box;
+           
+           pre{
+               word-wrap: break-word; 
+               overflow: auto;
+               padding: 8px;
+           }
         }
     }
 }
+
+

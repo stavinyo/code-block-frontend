@@ -1,12 +1,29 @@
+// .app-header {
+//     padding: 10px;
+//     font-size: 50px;
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+    
+//     a > h1 {
+//             font-family: neue;
+//     }
+// }
+
 .app-header {
     padding: 10px;
     font-size: 50px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    max-width: 100%; 
+    overflow: hidden;
+
     a > h1 {
-            font-family: neue;
+        font-family: neue;
+        white-space: nowrap;
+        overflow: hidden; 
+        text-overflow: ellipsis;
     }
 }
