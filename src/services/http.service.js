@@ -1,27 +1,31 @@
-import Axios from 'axios'
+// http.service.js
+
+
+import Axios from 'axios';
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? 'https://code-block.up.railway.app/api/codeblocks'
-    // ? '/api/'
-    : '//localhost:3030/api/'
+    ? '/'
+    : 'http://localhost:3000/';
+
+const axios = Axios.create({
+    withCredentials: true,
+    baseURL: BASE_URL, // Set the baseURL directly
+});
 
 
-var axios = Axios.create({
-    withCredentials: true
-})
 
 export const httpService = {
-    get(endpoint, data) {
-        return ajax(endpoint, 'GET', data)
+    async get(endpoint, data) {
+        return ajax(endpoint, 'GET', data);
     },
-    post(endpoint, data) {
-        return ajax(endpoint, 'POST', data)
+    async post(endpoint, data) {
+        return ajax(endpoint, 'POST', data);
     },
-    put(endpoint, data) {
-        return ajax(endpoint, 'PUT', data)
+    async put(endpoint, data) {
+        return ajax(endpoint, 'PUT', data);
     },
-    delete(endpoint, data) {
-        return ajax(endpoint, 'DELETE', data)
+    async delete(endpoint, data) {
+        return ajax(endpoint, 'DELETE', data);
     }
 }
 
@@ -39,11 +43,10 @@ async function ajax(endpoint, method = 'GET', data = null) {
     } catch (err) {
         console.log('Request failed:', method, endpoint);
         console.log('Data:', data);
-        console.error(err);
 
         if (err.response && err.response.status === 401) {
             sessionStorage.clear();
-            // window.location.assign('/');
+            window.location.assign('/');
         }
         throw err;
     }
